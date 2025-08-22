@@ -32,7 +32,7 @@ class World : HttpHandler {
         //---------------------------------- 서버 TPS -------------------------------------
         val tps = Bukkit.getServer().tps.clone()
 
-        html = html.replace("%tps", tps[0].toString())
+        html = html.replace("%tps", "%.2f".format(tps[0]))
         //---------------------------------- 서버 TPS 끝 ----------------------------------
 
         //---------------------------------- 서버 접속 인원 --------------------------------
@@ -51,15 +51,18 @@ class World : HttpHandler {
         val worldString = params["w"] ?: Bukkit.getServer().worlds.first().name
 
         val world = Bukkit.getServer().getWorld(worldString) ?: Bukkit.getServer().worlds.first()
-        val worldSize = getWorldSize(world) / (1024 * 1024 * 1024)
+        val worldSize = getWorldSize(world).toDouble() / (1024 * 1024 * 1024)
 
         html = html.replace("%world", world.name)
         html = html.replace("%capacity", worldSize.toString())
         //---------------------------------- 월드 그거 끝 ------------------------------
 
-        exchange.sendResponseHeaders(200, html.length.toLong())
+        val bytes = html.toByteArray(Charsets.UTF_8)
+
+        exchange.sendResponseHeaders(200, bytes.size.toLong())
+        exchange.responseHeaders.add("Content-Type", "text/html; charset=UTF-8")
         exchange.responseBody.use { os ->
-            os.write(html.toByteArray())
+            os.write(bytes)
         }
     }
 }

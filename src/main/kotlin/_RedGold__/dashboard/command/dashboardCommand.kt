@@ -50,7 +50,7 @@ class dashboardCommand(private val plugin: Plugin) : CommandExecutor, TabComplet
             val tps = Bukkit.getTPS().clone()
             sender.sendMessage(gc(
                 prefix +
-                "&e1분전 TPS: &b${tps[0]}"
+                "&e1분전 TPS: &b${"%.2f".format(tps[0])}"
             ))
         } else if (args[0] == "cpu") {
             val osBean = ManagementFactory.getOperatingSystemMXBean() as OperatingSystemMXBean
