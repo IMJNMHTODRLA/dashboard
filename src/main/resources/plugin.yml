@@ -1,0 +1,16 @@
+name: dashboard
+version: '1.0.0'
+main: _RedGold__.dashboard.Dashboard
+api-version: '1.13'
+load: STARTUP
+authors: [ _RedGold__ ]
+description: dashboard
+website: https://github.com/IMJNMHTODRLA/dashboard
+commands:
+  dashboard:
+    description: "dashboard Command"
+    aliases:
+      - db
+permissions:
+  dashboard.command:
+    default: op

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard plugin web(port $port)</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card div {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .card div:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            color: #333333;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #007acc;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            font-size: 14px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007acc;
+            box-shadow: 0 0 5px rgba(0, 122, 204, 0.5);
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007acc;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="server-cpu">
+            <h2>서버 cpu 사용량</h2>
+            <h3>%cpu%</h3>
+        </div>
+
+        <div class="server-memory">
+            <h2>서버 메모리 사용량</h2>
+            <h3>%memory MB</h3>
+        </div>
+
+        <div class="server-tps">
+            <h2>서버 TPS</h2>
+            <h3>%tps</h3>
+        </div>
+
+        <div class="server-player-list">
+            <h2>서버 접속 인원</h2>
+            <h3>%players명</h3>
+        </div>
+
+        <div class="server-world-capacity">
+            <h2>%world의 용량</h2>
+            <h3>%capacity GB</h3>
+
+            <form id="load-world-form">
+                <input type="text" id="world-name"
+                placeholder="월드 이름을 입력하세요." autocomplete="off" required>
+                <input type="submit" value="불러오기">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('load-world-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const worldName = document.getElementById('world-name').value;
+
+            window.location.href = '/world?w=' + encodeURIComponent(worldName);
+        });
+    </script>
+</body>
+</html>
